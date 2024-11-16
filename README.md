@@ -71,3 +71,13 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+# Guia mia
+
+- Este proyecto usa pnpm
+- Siguiendo tuto de fazt usando ORM prisma y sqlite https://www.youtube.com/watch?v=vUcNydH1tz0
+  - Se instala:
+    pnpm install prisma -D
+    npx prisma init --datasource-provider sqlite
+    npx prisma migrate dev --name init (este comando se ejecuta luego de crear los schemas y se asi se crea la DB)
+    Esto crea archivos dentro de la carpeta "debt-manager-back\prisma"
