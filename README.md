@@ -76,8 +76,15 @@ Nest is [MIT licensed](LICENSE).
 
 - Este proyecto usa pnpm
 - Siguiendo tuto de fazt usando ORM prisma y sqlite https://www.youtube.com/watch?v=vUcNydH1tz0 (quede min 4:40)
+
   - Se instala:
     pnpm install prisma -D
     npx prisma init --datasource-provider sqlite
     npx prisma migrate dev --name init (este comando se ejecuta luego de crear los schemas y se asi se crea la DB)
     Esto crea archivos dentro de la carpeta "debt-manager-back\prisma"
+
+    Si quiero resetear los Schemas/Types/Interfaces de Prisma
+
+    1. Guardar los datos de schema.prisma
+    2. Borrar carpeta debt-manager-back\prisma
+    3. Re-iniciar prisma con los comandos

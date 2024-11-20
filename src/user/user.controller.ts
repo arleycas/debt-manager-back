@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Put, Delete, Body, Param, BadRequestException } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { User } from "@prisma/client";
-
+import { hashSync, compareSync } from 'bcryptjs';
 @Controller('user')
 export class UserController {
 
@@ -12,9 +12,15 @@ export class UserController {
     return this.userService.getAllUsers();
   }
 
-  @Post()
+  @Post('/register')
   async createUser(@Body() data: User) {
-    return this.userService.createUser(data);
+    try {
+      data.password = hashSync(data.password, 10); // se hashea el password
+      return this.userService.createUser(data);
+    } catch (error) {
+      console.log('Error en createUser', error);
+      throw new BadRequestException(error);
+    }
   }
 
   @Get(':id')
@@ -38,5 +44,24 @@ export class UserController {
   @Put(':id')
   async updateUser(@Param('id') id: string, @Body() data: User) {
     return this.userService.updateUser(Number(id), data);
+  }
+
+  @Post('login')
+  async loginUser(@Body() data: { username: string, password: string}) {
+    try {
+      
+      const userFound = await this.userService.getUserByUserName(data.username);
+      
+      if (!userFound) throw new BadRequestException('Usuario no encontrado');
+      
+      const eq = compareSync(data.password, userFound.password);
+      if (!eq) throw new BadRequestException('Error en usuario o contraseña');
+  
+      return { message: 'Login correcto' }
+    } catch (error) {
+      console.log('Error en loginUser', error);
+      
+      throw new BadRequestException(error); 
+    }
   }
 }
