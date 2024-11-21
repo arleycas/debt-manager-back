@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "src/prisma/prisma.service";
 import { User } from "@prisma/client";
-
+import { sign } from "jsonwebtoken";
 @Injectable()
 export class UserService {
 
@@ -48,6 +48,15 @@ export class UserService {
         id
       }
     });
+  }
+
+  createToken(user: User) {
+    const payload = {
+      user_id: user.id,
+      username: user.username,
+    }
+
+    return sign(payload, process.env.SECRET_KEY_JWT)
   }
 
 }

@@ -46,10 +46,9 @@ export class UserController {
     return this.userService.updateUser(Number(id), data);
   }
 
-  @Post('login')
+  @Post('/login')
   async loginUser(@Body() data: { username: string, password: string}) {
     try {
-      
       const userFound = await this.userService.getUserByUserName(data.username);
       
       if (!userFound) throw new BadRequestException('Usuario no encontrado');
@@ -57,7 +56,7 @@ export class UserController {
       const eq = compareSync(data.password, userFound.password);
       if (!eq) throw new BadRequestException('Error en usuario o contraseña');
   
-      return { message: 'Login correcto' }
+      return { message: 'Login correcto', token: this.userService.createToken(userFound) }
     } catch (error) {
       console.log('Error en loginUser', error);
       

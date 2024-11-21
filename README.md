@@ -88,3 +88,20 @@ Nest is [MIT licensed](LICENSE).
     1. Guardar los datos de schema.prisma
     2. Borrar carpeta debt-manager-back\prisma
     3. Re-iniciar prisma con los comandos
+
+    Para login:
+    1ra parte https://www.youtube.com/watch?v=0GaMfn7cr-c (aqui explica un poco del front)
+    2da parte https://www.youtube.com/watch?v=u9JttMABiFE (sigue explicando lo de JWT)
+
+NOTA al instalar dependencias y typescript:
+
+- Por lo general las dependencias tienen una instalación noral y adicionalmente toca instalar unas "definiciones" de typescript entonces se instala algo así ej:
+  `npm install jsonwebtoken @types/jsonwebtoken`
+
+Explicación en indio de como usar middlewares
+[text](https://www.youtube.com/watch?v=8vyXWyml634)
+
+Como funciona JWT
+
+1. Al usuario hacer login en user.controller.ts (user/login) se le genera un token (JWT) y por así decirlo queda Logueado una vez tiene el token
+2. Una vez logueado todas las peticiones al back que haga van a pasar por el middleware "debt-manager-back\src\common\middleware\jtw-check.middleware.ts" y debe proporcionar ese token en los headers Authorization, si no está el token lo toma como si no está logueado
