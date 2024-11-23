@@ -99,7 +99,7 @@ NOTA al instalar dependencias y typescript:
   `npm install jsonwebtoken @types/jsonwebtoken`
 
 Explicación en indio de como usar middlewares
-[text](https://www.youtube.com/watch?v=8vyXWyml634)
+[Video](https://www.youtube.com/watch?v=8vyXWyml634)
 
 Como funciona JWT
 
